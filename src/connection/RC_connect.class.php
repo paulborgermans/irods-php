@@ -442,13 +442,13 @@ trait RC_auth_PAM {
     use RC_auth_password;
 
     private function postConnection() {
-        // Ask server to turn on SSL
-        $req_packet = new RP_sslStartInp();
-        $msg = new RODSMessage("RODS_API_REQ_T", $req_packet, $GLOBALS['PRODS_API_NUMS']['SSL_START_AN']);
-        $this->sendMessage($msg, "PAM SSL Start");
 
-        // otherwise this is already enabled
         if (!$this->ssl_enabled) {
+            // Ask server to turn on SSL
+            $req_packet = new RP_sslStartInp();
+            $msg = new RODSMessage("RODS_API_REQ_T", $req_packet, $GLOBALS['PRODS_API_NUMS']['SSL_START_AN']);
+            $this->sendMessage($msg, "PAM SSL Start");
+
             $this->enableSSL();
         }
 
