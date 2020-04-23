@@ -93,7 +93,7 @@ trait RC_auth_openid {
         $response = base64_encode(AUTH_SCHEME_KEY . "=" . AUTH_OPENID_SCHEME);
         $resp_packet = new RP_authResponseInp($response, "$user#$zone");
         $msg = new RODSMessage("RODS_API_REQ_T", $resp_packet, $GLOBALS['PRODS_API_NUMS']['AUTH_RESPONSE_AN']);
-        $this->sendMessage($msg, function () {
+        $this->sendMessage($msg, function () use ($user, $zone) {
             $this->disconnect();
             return "Openid login failed for user: $user zone: $zone";
         });

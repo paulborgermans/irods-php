@@ -423,7 +423,7 @@ trait RC_auth_password {
         // set response
         $resp_packet = new RP_authResponseInp($response, "$proxy_user#$zone");
         $msg = new RODSMessage("RODS_API_REQ_T", $resp_packet, $GLOBALS['PRODS_API_NUMS']['AUTH_RESPONSE_AN']);
-        $this->sendMessage($msg, function () {
+        $this->sendMessage($msg, function () use ($pass, $proxy_user, $zone) {
             $this->disconnect();
             $scrambledPass = preg_replace("|.|", "*", $pass);
             return "Login failed, possible wrong user/passwd for user: $proxy_user pass: $scrambledPass zone: $zone";
